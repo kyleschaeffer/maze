@@ -59,14 +59,18 @@ export class Maze {
     // Build diagram string
     let diagram = '';
     for (let y = 0; y < this.size; y++) {
+      let line1 = '';
+      let line2 = '';
       for (let x = 0; x < this.size; x++) {
         // Get cell at [x,y]
         const cell = this.getCell(x, y);
 
         // Diagram character for this cell
         const charKey = `${cell.n ? '1' : '0'}${cell.e ? '1' : '0'}${cell.s ? '1' : '0'}${cell.w ? '1' : '0'}`;
-        diagram += cellAtlas.get(charKey);
+        line1 += cellAtlas.get(charKey).split('\n')[0];
+        line2 += cellAtlas.get(charKey).split('\n')[1];
       }
+      diagram += `${line1}\n${line2}`;
       if (y < this.size - 1) diagram += '\n';
     }
 
@@ -193,23 +197,23 @@ enum Direction {
 
 /**
  * There are 16 possible combinations of cell configurations
- *  - This map defines the character to be output for each possible combination
+ *  - This map defines the characters to be output for each possible combination
  */
 const cellAtlas: Map<string, string> = new Map<string, string>([
-  ['0000', ' '],
-  ['0001', '⎸'],
-  ['0010', '⎽'],
-  ['0011', '└'],
-  ['0100', '⎹'],
-  ['0101', '║'],
-  ['0110', '┘'],
-  ['0111', '⼐'],
-  ['1000', '⎺'],
-  ['1001', '┌'],
-  ['1010', '═'],
-  ['1011', '⫍'],
-  ['1100', '┐'],
-  ['1101', '⼌'],
-  ['1110', '⫎'],
-  ['1111', '█'],
+  ['0000', '  \n  '],
+  ['0001', '│ \n│ '],
+  ['0010', '  \n──'],
+  ['0011', '│ \n└─'],
+  ['0100', ' │\n │'],
+  ['0101', '││\n││'],
+  ['0110', ' │\n─┘'],
+  ['0111', '││\n└┘'],
+  ['1000', '──\n  '],
+  ['1001', '┌─\n│ '],
+  ['1010', '──\n──'],
+  ['1011', '┌─\n└─'],
+  ['1100', '─┐\n │'],
+  ['1101', '┌┐\n││'],
+  ['1110', '─┐\n─┘'],
+  ['1111', '┌┐\n└┘'],
 ]);
