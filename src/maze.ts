@@ -1,5 +1,9 @@
 import { PRNG } from './prng';
 
+/**
+ * A simple maze generation algorithm
+ *  - Uses depth-first-traversal to generate a backwards-tracing recursive cell table of mazes
+ */
 export class Maze {
   /**
    * Pseudo-random number generator is used for deterministic generation
